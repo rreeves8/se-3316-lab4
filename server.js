@@ -55,5 +55,5 @@ app.get('/api/data', (request,response) => {
 })
 
 app.listen(80, (request, response) => {
-    console.log("Server is running at port 2000");
+    console.log("Server is running at port 80");
 });
