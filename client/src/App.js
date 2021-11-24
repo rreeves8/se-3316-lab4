@@ -4,9 +4,11 @@ import React from 'react';
 import api from './api/api';
 const testData = require( './questions.json')
 
+//class for each question
 class Question extends React.Component{
 	constructor(props){
 		super(props)
+		
 		this.state = {
 			question: props.question,
 			options: props.options,
@@ -15,7 +17,7 @@ class Question extends React.Component{
 			optionNum: 0,
 			changeAnswer: props.changeAnswer
 		}
-		
+		//value sets the initial value of answers in the App class so defualt values are made
 		let value = {
 			qNum: this.props.qNum,
 			optionNum: 0
@@ -25,7 +27,9 @@ class Question extends React.Component{
 		this.state.changeAnswer(value)
 	}
 
+	//get the indivdual answer and see if its correct
 	async getAnswer(event) {
+		
 		let value = {
 			qNum: Number(this.props.qNum),
 			optionNum: Number(event.target.id)
@@ -63,6 +67,7 @@ class Question extends React.Component{
         }
 	}
 
+	//on change of radio button
 	onValChange = (event) => {
 		let value = {
 			qNum: this.props.qNum,
@@ -179,6 +184,7 @@ class App extends React.Component {
 		this.getAnswer()
 	}
 
+	//asyny function for getting the score the user got
 	async getAnswer(){
 		try{
 			console.log(this.state.answers)
@@ -198,6 +204,7 @@ class App extends React.Component {
 	}
 
 	render(){
+		//if data not returned display loading 
 		if(this.state.data === null){
 			this.getdata();
 			//this.getDataTest()
@@ -206,15 +213,17 @@ class App extends React.Component {
 			)
 		}
 		else{
-			let questions = []
-			let score = <h1 className = "answer"> 0/5 </h1>;
-			let submission = <button className = "submit-button" onClick = {this.onSubmitForm}> Submit</button>
-
+			let questions = [] //stores the question html
+			let score = <h1 className = "answer"> 0/5 </h1>; //stores the scrore value
+			let submission = <button className = "submit-button" onClick = {this.onSubmitForm}> Submit</button> //submission button, only pressed once, when pressed fetches the score based on the answers
+			
+			//if scored don't let button click
 			if(this.state.score !== null){
 				score = <h1 className = "answer">{this.state.score}/5</h1>
 				submission = <button className = "submit-button"> Submitted </button>
 			}
 
+			//populate the questions 
 			for(let i = 0; i < this.state.data.length; i ++){
 				questions[i] = <Question
 									qNum = {i}

@@ -8,6 +8,7 @@ const data = require( './questions.json')
 
 app.use(express.static('client/build'))
 
+//answer api, receives the answers and responds with number of correct
 app.post('/api/answers', jsonParser,(request,response) => {
     let submitted = request.body;
     let totalCorrect = 0;
@@ -24,6 +25,7 @@ app.post('/api/answers', jsonParser,(request,response) => {
     response.json(totalCorrect)
 })
 
+//responds with the correct answer for indivudual questions
 app.post('/api/feedback', jsonParser,(request,response) => {
     let submitted = request.body;
     let correct = false;
